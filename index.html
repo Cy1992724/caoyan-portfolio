@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>曹燕 | Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+  }
+  body { overscroll-behavior-y: contain; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  /* ===== 水平扫描线背景 ===== */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px, transparent 2px,
+      rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 4px
+    );
+  }
+
+  /* ===== 导航 ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 12px 60px;
+    background: rgba(0,0,0,0.6);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .logo {
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+  .logo .sep {
+    color: rgba(255,255,255,0.3);
+    margin: 0 6px;
+    font-weight: 300;
+  }
+  .logo .en {
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+  }
+  .nav-links {
+    display: flex;
+    gap: 64px;
+  }
+  .nav-link {
+    text-decoration: none;
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-align: center;
+    line-height: 1.3;
+  }
+  .nav-link:hover { color: #fff; }
+  .nav-link:hover .cn { color: #fff; }
+  .nav-link .cn {
+    display: block;
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    text-transform: none;
+    letter-spacing: 0.08em;
+    margin-top: 3px;
+    transition: color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+/* ===== Hero 区域 ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #000000;
+    position: relative;
+    text-align: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .hero-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+.hero-img {
+position: relative;
+z-index: 3;
+max-width: 900px;
+width: 80vw;
+height: auto;
+display: block;
+animation: fadeUp 1.2s ease-out both, gentleFloat 5s ease-in-out infinite 1.2s;
+}
+  .hero-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 72px;
+    position: relative;
+    z-index: 3;
+  }
+  .hero-sub {
+    font-size: 25px;
+    letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.45);
+    font-weight: 300;
+    animation: fadeUp 1.4s ease-out 0.4s both;
+  }
+
+  /* ===== Hero 背景光斑 ===== */
+  .hero-texture-bg,
+  .contact-texture-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: url('封面封底的背景图.webp') center center / cover no-repeat;
+    opacity: 0.5;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+  }
+/* ===== 栅格线流动（已移除）===== */
+  .hero-bg .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: left, top;
+    pointer-events: none;
+  }
+  .hero-bg .blob1 {
+    width: 400px; height: 400px;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(30,100,255,0.5), transparent 70%);
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .fade-up.visible {
+    animation: fadeUp 0.8s ease-out forwards;
+  }
+
+  /* ===== 向下滑动指引条 ===== */
+  .scroll-indicator {
+    position: relative;
+    z-index: 2;
+    margin-top: 24px;
+    width: 1px;
+    height: 48px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+    animation: fadeUp 1.6s ease-out 0.8s both;
+  }
+  .scroll-indicator::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent, rgba(77, 150, 255, 0.9), transparent);
+    animation: lightSweep 2.5s ease-in-out infinite;
+  }
+  @keyframes lightSweep {
+    0% { top: -40%; }
+    100% { top: 140%; }
+  }
+
+  /* ===== About ===== */
+  .about {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 60px;
+    background: #111111;
+    position: relative;
+    z-index: 1;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .about-inner {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+  }
+.about-grid {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+}
+  .about-img-name {
+    width: auto;
+    max-width: 216px;
+    height: auto;
+    display: block;
+    margin: 0;
+    margin-left: 120px;
+  }
+  .about-img-intro {
+    width: auto;
+    max-width: 432px;
+    height: auto;
+    display: block;
+    margin: 0;
+    margin-right: 120px;
+  }
+
+  /* ===== Work ===== */
+  .work {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 60px;
+    background: #000000;
+    position: relative;
+    z-index: 1;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .work-inner {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .work-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+  }
+  .work-card {
+    position: relative;
+    height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-decoration: none;
+  }
+  .work-card:nth-child(1) { margin-right: 30px; }
+  .work-card:nth-child(2) { margin-right: 40px; }
+  .work-card:nth-child(3) { margin-right: 40px; }
+  .work-card-img {
+    position: relative;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .work-card:hover .work-card-img {
+    transform: scale(1.08);
+  }
+  .work-card-title {
+    color: rgba(255,255,255,0.85);
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .work-card-img img {
+    max-height: 100%;
+    max-width: 286px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    animation: cardFloat 6s ease-in-out infinite;
+  }
+  .work-card:nth-child(2) .work-card-img img { animation-delay: 1.5s; }
+  .work-card:nth-child(3) .work-card-img img { animation-delay: 3s; }
+  .work-card:nth-child(4) .work-card-img img { animation-delay: 4.5s; }
+  @keyframes cardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  @keyframes gentleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* ===== 项目详情弹窗 ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .modal-overlay.active {
+    display: flex;
+    opacity: 1;
+  }
+  .modal-panel {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: #000000;
+    border-radius: 0;
+    overflow: hidden;
+    transform: scale(0.92);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-overlay.active .modal-panel {
+    transform: scale(1);
+  }
+  .modal-close {
+    position: absolute;
+    top: 28px;
+    right: 32px;
+    z-index: 100;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: #fff;
+    color: #000;
+    font-size: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .modal-close:hover {
+    transform: scale(1.1);
+  }
+  .modal-body {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: #000000;
+    padding: 24px 0 40px;
+    box-sizing: border-box;
+  }
+  .modal-body img {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+  @media (max-width: 768px) {
+    .modal-body img {
+      max-width: 100%;
+    }
+  }
+  .modal-body .modal-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: rgba(255,255,255,0.3);
+    font-size: 18px;
+  }
+
+  /* ===== Contact ===== */
+  .contact {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #000000;
+    position: relative;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .contact-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .contact-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 72px;
+  }
+.contact-img {
+position: relative;
+z-index: 3;
+max-width: 900px;
+width: 80vw;
+height: auto;
+display: block;
+animation: gentleFloat 5s ease-in-out infinite;
+}
+  .contact-info {
+    font-size: 20px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    display: flex;
+    gap: 40px;
+    position: relative;
+    z-index: 3;
+  }
+  .contact-info span {
+    position: relative;
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0.45) 0%,
+      rgba(255,255,255,0.45) 40%,
+      rgba(255,255,255,1) 50%,
+      rgba(255,255,255,0.45) 60%,
+      rgba(255,255,255,0.45) 100%
+    );
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3.5s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: 150% 0; }
+    100% { background-position: -50% 0; }
+  }
+  .contact-info .sep {
+    display: none;
+  }
+
+  /* ===== 响应式 ===== */
+  @media (max-width: 1024px) {
+    .work-grid { flex-wrap: wrap; gap: 20px; }
+    .work-card { margin-right: 0 !important; height: 320px; }
+    .work-card-img img { max-width: 200px; }
+    .work-card-title { font-size: 14px; font-weight: 300; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-img { max-width: 320px; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { gap: 32px; }
+    .hero-img { width: 90vw; }
+    .work { padding: 60px 24px; }
+    .work-grid { grid-template-columns: 1fr; }
+    .about { padding: 60px 24px; }
+    .about-grid {
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+    .about-img-name {
+      max-width: 180px;
+      margin: 0 auto;
+    }
+    .about-img-intro {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .about-img { max-width: 260px; }
+    .modal-panel {
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+    }
+    .modal-close {
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      font-size: 18px;
+    }
+    .modal-body {
+      padding: 48px 0 20px;
+    }
+    .contact-info {
+      flex-direction: column;
+      gap: 12px;
+      font-size: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">
+      曹燕 <span class="sep">|</span> <span class="en">Yana</span>
+    </div>
+    <div class="nav-links">
+      <a href="#about" class="nav-link">
+        ABOUT
+        <span class="cn">个人信息</span>
+      </a>
+      <a href="#work" class="nav-link">
+        WORK
+        <span class="cn">项目经验</span>
+      </a>
+      <a href="#contact" class="nav-link">
+        CONTACT
+        <span class="cn">期待联系</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+<div class="hero-texture-bg"></div>
+<div class="hero-bg">
+    <div class="blob blob1" id="cursor-blob"></div>
+  </div>
+  <div class="hero-main">
+    <img src="hero-title.webp" alt="PORTFOLIO / UI/UX" class="hero-img">
+  </div>
+  <div class="hero-bottom">
+    <div class="hero-sub">a product designer</div>
+    <div class="scroll-indicator"></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-grid">
+      <img src="名字.webp" alt="曹燕" class="about-img-name">
+      <img src="介绍.webp" alt="个人介绍" class="about-img-intro">
+    </div>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <div class="work-inner">
+    <div class="work-grid">
+<a href="javascript:void(0)" class="work-card" data-project="1">
+<div class="work-card-img"><img src="项目1.webp" alt="商家 AI 数字员工"></div>
+<span class="work-card-title">商家 AI 数字员工</span>
+</a>
+<a href="javascript:void(0)" class="work-card" data-project="2">
+<div class="work-card-img"><img src="项目2.webp" alt="牵牛花数据看板"></div>
+<span class="work-card-title">牵牛花首页-数据概览</span>
+</a>
+<a href="javascript:void(0)" class="work-card" data-project="3">
+<div class="work-card-img"><img src="项目3.webp" alt="AI 经营通2.0"></div>
+<span class="work-card-title">AI 经营通2.0</span>
+</a>
+<a href="javascript:void(0)" class="work-card" data-project="4">
+<div class="work-card-img"><img src="项目四.webp" alt="其他设计"></div>
+<span class="work-card-title">其他设计</span>
+</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+<div class="contact-texture-bg"></div>
+<div class="contact-main">
+    <img src="封底.webp" alt="THANKS FOR YOU" class="contact-img">
+  </div>
+  <div class="contact-bottom">
+    <div class="contact-info fade-up">
+      <span>13663155844</span>
+      <span>849178591@qq.com</span>
+    </div>
+  </div>
+</section>
+
+<!-- 项目详情弹窗 -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-panel">
+    <button class="modal-close" id="modal-close">&times;</button>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+  // 从详情页返回时直接定位到目标位置，不做平滑滚动
+  if (location.hash) {
+    var target = document.querySelector(location.hash);
+    if (target) {
+      // 先临时关闭 smooth，定位后再恢复
+      document.documentElement.style.scrollBehavior = 'auto';
+      target.scrollIntoView();
+      document.documentElement.style.scrollBehavior = '';
+    }
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+  // 光斑跟随鼠标（requestAnimationFrame 平滑插值）
+  var blob = document.getElementById('cursor-blob');
+  var heroSection = document.getElementById('hero');
+  if (blob && heroSection) {
+    var targetX = heroSection.offsetWidth / 2;
+    var targetY = heroSection.offsetHeight / 2;
+    var currentX = targetX;
+    var currentY = targetY;
+    var isAnimating = false;
+
+    heroSection.addEventListener('mousemove', function(e) {
+      var rect = heroSection.getBoundingClientRect();
+      targetX = e.clientX - rect.left;
+      targetY = e.clientY - rect.top;
+      if (!isAnimating) {
+        isAnimating = true;
+        requestAnimationFrame(updateBlob);
+      }
+    });
+
+    function updateBlob() {
+      currentX += (targetX - currentX) * 0.12;
+      currentY += (targetY - currentY) * 0.12;
+      blob.style.left = currentX + 'px';
+      blob.style.top = currentY + 'px';
+      var dx = Math.abs(targetX - currentX);
+      var dy = Math.abs(targetY - currentY);
+      if (dx > 0.5 || dy > 0.5) {
+        requestAnimationFrame(updateBlob);
+      } else {
+        isAnimating = false;
+      }
+    }
+  }
+
+  // 项目详情弹窗
+  var projectData = {
+    '1': { img: ['4项目1-1@2x.webp', '4项目1-2@2x.webp', '4项目1-3@2x.webp', '4项目1-4@2x.webp', '4项目1-5@2x.webp'], title: '商家 AI 数字员工' },
+    '2': { img: ['4项目2-1@2x.webp', '4项目2-2@2x.webp', '4项目2-3@2x.webp', '4项目2-4@2x.webp'], title: '牵牛花数据看板' },
+    '3': { img: '项目3详情.webp', title: 'AI 经营通2.0' },
+    '4': { img: '项目4详情.webp', title: '其他设计' }
+  };
+  var overlay = document.getElementById('modal-overlay');
+  var modalBody = document.getElementById('modal-body');
+  var closeBtn = document.getElementById('modal-close');
+
+  document.querySelectorAll('.work-card').forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      e.preventDefault();
+      var pid = this.getAttribute('data-project');
+      var data = projectData[pid];
+      if (data && data.img) {
+        if (Array.isArray(data.img)) {
+          modalBody.innerHTML = data.img.map(function(src) {
+            return '<img src="' + src + '" alt="' + data.title + '">';
+          }).join('');
+        } else {
+          modalBody.innerHTML = '<img src="' + data.img + '" alt="' + data.title + '">';
+        }
+      } else {
+        modalBody.innerHTML = '<div class="modal-placeholder">' + (data ? data.title : '') + ' — 详情待补充</div>';
+      }
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      document.querySelector('nav').style.display = 'none';
+    });
+  });
+
+  function closeModal() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    document.querySelector('nav').style.display = '';
+    modalBody.scrollTop = 0;
+  }
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+  });
+</script>
+
+</body>
+</html>
