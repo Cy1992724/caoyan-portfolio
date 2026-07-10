@@ -143,7 +143,7 @@ animation: fadeUp 1.2s ease-out both, gentleFloat 5s ease-in-out infinite 1.2s;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background: url('封面封底的背景图.webp') center center / cover no-repeat;
+    background: url('封面封底的背景图.webp') center center / cover no-repeat; background-attachment: fixed;
     opacity: 0.5;
   }
   .hero-bg {
@@ -574,8 +574,8 @@ animation: gentleFloat 5s ease-in-out infinite;
 <section class="about" id="about">
   <div class="about-inner">
     <div class="about-grid">
-      <img src="名字.webp" alt="曹燕" class="about-img-name">
-      <img src="介绍.webp" alt="个人介绍" class="about-img-intro">
+      <img src="名字.webp" alt="曹燕" class="about-img-name" loading="lazy">
+      <img src="介绍.webp" alt="个人介绍" class="about-img-intro" loading="lazy">
     </div>
   </div>
 </section>
@@ -584,19 +584,19 @@ animation: gentleFloat 5s ease-in-out infinite;
   <div class="work-inner">
     <div class="work-grid">
 <a href="javascript:void(0)" class="work-card" data-project="1">
-<div class="work-card-img"><img src="项目1.webp" alt="商家 AI 数字员工"></div>
+<div class="work-card-img"><img src="项目1.webp" alt="商家 AI 数字员工" loading="lazy"></div>
 <span class="work-card-title">商家 AI 数字员工</span>
 </a>
 <a href="javascript:void(0)" class="work-card" data-project="2">
-<div class="work-card-img"><img src="项目2.webp" alt="牵牛花数据看板"></div>
+<div class="work-card-img"><img src="项目2.webp" alt="牵牛花数据看板" loading="lazy"></div>
 <span class="work-card-title">牵牛花首页-数据概览</span>
 </a>
 <a href="javascript:void(0)" class="work-card" data-project="3">
-<div class="work-card-img"><img src="项目3.webp" alt="AI 经营通2.0"></div>
+<div class="work-card-img"><img src="项目3.webp" alt="AI 经营通2.0" loading="lazy"></div>
 <span class="work-card-title">AI 经营通2.0</span>
 </a>
 <a href="javascript:void(0)" class="work-card" data-project="4">
-<div class="work-card-img"><img src="项目四.webp" alt="其他设计"></div>
+<div class="work-card-img"><img src="项目四.webp" alt="其他设计" loading="lazy"></div>
 <span class="work-card-title">其他设计</span>
 </a>
     </div>
@@ -606,7 +606,7 @@ animation: gentleFloat 5s ease-in-out infinite;
 <section class="contact" id="contact">
 <div class="contact-texture-bg"></div>
 <div class="contact-main">
-    <img src="封底.webp" alt="THANKS FOR YOU" class="contact-img">
+    <img src="封底.webp" alt="THANKS FOR YOU" class="contact-img" loading="lazy">
   </div>
   <div class="contact-bottom">
     <div class="contact-info fade-up">
